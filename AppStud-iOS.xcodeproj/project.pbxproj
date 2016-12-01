@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B0765C91DF05C2B00F56548 /* PlacemarkServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0765C81DF05C2B00F56548 /* PlacemarkServiceLocator.swift */; };
 		8B2748041DF0249C00350316 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B2748031DF0249C00350316 /* MapKit.framework */; };
 		8B2748061DF027DA00350316 /* MapViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2748051DF027DA00350316 /* MapViewExtension.swift */; };
 		8B2748081DF0350500350316 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2748071DF0350500350316 /* Place.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B0765C81DF05C2B00F56548 /* PlacemarkServiceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacemarkServiceLocator.swift; sourceTree = "<group>"; };
 		8B2748031DF0249C00350316 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8B2748051DF027DA00350316 /* MapViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewExtension.swift; sourceTree = "<group>"; };
 		8B2748071DF0350500350316 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				8B27480D1DF03F0300350316 /* PlacemarksManager.swift */,
+				8B0765C81DF05C2B00F56548 /* PlacemarkServiceLocator.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				8B2748081DF0350500350316 /* Place.swift in Sources */,
 				8B5F861C1DF01D7300D2A2A5 /* ViewControllerPresenterProtocol.swift in Sources */,
 				8B2748061DF027DA00350316 /* MapViewExtension.swift in Sources */,
+				8B0765C91DF05C2B00F56548 /* PlacemarkServiceLocator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
