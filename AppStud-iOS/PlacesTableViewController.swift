@@ -44,8 +44,13 @@ class PlacesTableViewController: UITableViewController {
         
         reloadDataWithLastCoordinates()
     }
+    
+    // MARK: Actions
+    
+    @IBAction func refreshData(_ sender: Any) {
+        reloadDataWithLastCoordinates()
+    }
 }
-
 
 // MARK: - Presentable
 extension PlacesTableViewController: PlacesViewPresentable {
@@ -57,7 +62,7 @@ extension PlacesTableViewController: PlacesViewPresentable {
 }
 
 // MARK: - Reload
-fileprivate extension PlacesTableViewController {
+extension PlacesTableViewController {
     private enum Constants {
         static let radius = 2000.0
     }
@@ -66,6 +71,8 @@ fileprivate extension PlacesTableViewController {
         guard let coordinates = Settings.userLocation else { return }
         
         presenter.fetchPlacemarks(nearCoordinate: coordinates, radius: Constants.radius)
+        
+        refreshControl?.endRefreshing()
     }
 }
 

@@ -51,8 +51,10 @@ class LocationsViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchPlacemarks()
     }
     
     // MARK: Actions
@@ -60,8 +62,6 @@ class LocationsViewController: UIViewController {
     @IBAction func centerUserLocation(_ sender: Any) {
         mapView.centerUserLocation()
     }
-    
-    // MARK: Methods
 }
 
 // MARK: - DataSource 
@@ -71,6 +71,12 @@ fileprivate extension LocationsViewController {
         
         for place in places {
             mapView.addAnnotation(place)
+        }
+    }
+    
+    func fetchPlacemarks() {
+        if let location = Settings.userLocation {
+            presenter.fetchPlacemarks(nearCoordinate: location, radius: Constants.radius)
         }
     }
 }
@@ -129,8 +135,6 @@ extension LocationsViewController: CLLocationManagerDelegate {
         
         Settings.userLocation = locations.first?.coordinate
         
-        if let location = Settings.userLocation {
-            presenter.fetchPlacemarks(nearCoordinate: location, radius: Constants.radius)
-        }
+        fetchPlacemarks()
     }
 }
