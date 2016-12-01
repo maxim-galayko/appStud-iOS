@@ -9,5 +9,5 @@
 import UIKit
 
 protocol ImageProvidable: NSObjectProtocol {
-    func fetchPhoto(reference: String, completion: (UIImage?) -> Void)
+    func fetchPhoto(reference: String, width: Int, completion:  @escaping (UIImage?) -> Void)
 }

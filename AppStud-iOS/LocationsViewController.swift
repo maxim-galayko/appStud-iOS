@@ -18,7 +18,6 @@ class LocationsViewController: UIViewController {
     
     fileprivate enum Constants {
         static let radius = 2000.0
-        static let minLocationDifference = 100.0
     }
     
     // MARK: Variables
@@ -33,8 +32,6 @@ class LocationsViewController: UIViewController {
         manager.delegate = self
         return manager
     }()
-    
-    fileprivate var userLocation: CLLocation?
     
     // MARK: Outlets
     
@@ -64,7 +61,7 @@ class LocationsViewController: UIViewController {
         mapView.centerUserLocation()
     }
     
-    // MAKR: Methods
+    // MARK: Methods
 }
 
 // MARK: - DataSource 
@@ -73,10 +70,7 @@ fileprivate extension LocationsViewController {
         mapView.removeAnnotations(mapView.annotations)
         
         for place in places {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = place.coordinate
-            annotation.title = "test"
-            mapView.addAnnotation(annotation)
+            mapView.addAnnotation(place)
         }
     }
 }
@@ -103,34 +97,40 @@ extension LocationsViewController: MKMapViewDelegate {
             return nil
         }
         
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: MapConstants.pinViewReuseIdentifier)
+        var pinView: ImageAnnotationView? = mapView.dequeueReusableAnnotationView(withIdentifier: MapConstants.pinViewReuseIdentifier) as? ImageAnnotationView
         if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: MapConstants.pinViewReuseIdentifier)
+            pinView = ImageAnnotationView(annotation: annotation, reuseIdentifier: MapConstants.pinViewReuseIdentifier)
         }
         
         fill(pinView: pinView!, forAnnotation: annotation)
         return pinView
     }
     
-    private func fill(pinView: MKAnnotationView, forAnnotation annotation: MKAnnotation) {
+    private func fill(pinView: ImageAnnotationView, forAnnotation annotation: MKAnnotation) {
         pinView.canShowCallout = true
         pinView.annotation = annotation
+        
+        if let placeAnnotation = annotation as? Place, let reference = placeAnnotation.reference {
+            presenter.fetchPhoto(reference: reference, width: Int(UIScreen.main.bounds.width)) { image in
+                pinView.imageView.image = image
+            }
+        }
     }
 }
 
 // MARK: - Location Manager
 extension LocationsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let userLocation = userLocation,
+        if let userLocation = Settings.userLocation,
             let firstLocation = locations.first,
-            userLocation.distance(from: firstLocation) < Constants.minLocationDifference {
+            userLocation.equal(second: firstLocation.coordinate) {
             return
         }
         
-        userLocation = locations.first
+        Settings.userLocation = locations.first?.coordinate
         
-        if let location = userLocation {
-            presenter.fetchPlacemarks(nearCoordinate: location.coordinate, radius: Constants.radius)
+        if let location = Settings.userLocation {
+            presenter.fetchPlacemarks(nearCoordinate: location, radius: Constants.radius)
         }
     }
 }

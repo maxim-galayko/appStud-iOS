@@ -9,17 +9,16 @@
 import UIKit
 import MapKit
 
-class Place: NSObject {
-    var coordinate: CLLocationCoordinate2D!
+class Place: MKPointAnnotation {
     
     var name: String?
     
     var reference: String?
     
     init(coordinate: CLLocationCoordinate2D) {
-        self.coordinate = coordinate
-        
         super.init()
+        
+        self.coordinate = coordinate
     }
 }
 

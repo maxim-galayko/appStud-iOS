@@ -27,7 +27,7 @@ extension MKMapView {
     }
     
     private func mapRect(coordinate: CLLocationCoordinate2D) -> MKMapRect {
-        let delta: Double = 15000
+        let delta: Double = 7500
         let mapPoint = MKMapPointForCoordinate(coordinate)
         return MKMapRectMake(mapPoint.x - delta, mapPoint.y - delta, delta * 2, delta * 2)
     }
